@@ -30,9 +30,7 @@ const getConvidados =  (req, res) => {
     if (error) {
       console.error('Erro ao buscar convidados:', error);
       res.status(500).json({ message: 'Erro ao buscar convidados.' });
-    } else if (results.length === 0) {
-      res.status(404).json({ message: 'Nenhum convidado encontrado para este evento.' });
-    } else {
+    } else  {
       res.status(200).json(results);
     }
   });
@@ -40,11 +38,12 @@ const getConvidados =  (req, res) => {
 };
 
 const deleteConvidado = (req, res) => {
-    const { idEventos, convidadoId } = req.params;
+    const { idEventos, id } = req.params;
+console.log (idEventos)
+console.log (id)
+  const query = 'DELETE FROM convidados WHERE autoid = ?';
 
-  const query = 'DELETE FROM convidados WHERE evento = ? AND autoid = ?';
-
-  db.query(query, [idEventos, convidadoId], (error, results) => {
+  db.query(query, [id], (error, results) => {
     if (error) {
       console.error('Erro ao deletar convidado:', error);
       res.status(500).json({ message: 'Erro ao deletar o convidado.' });
